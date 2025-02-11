@@ -36,4 +36,8 @@ public abstract class GenericEntity {
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         return false;
     }
+	
+	public Long getId() {
+		return this.id;
+	}
 }

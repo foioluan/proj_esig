@@ -14,5 +14,7 @@ public interface UserRepository {
     public List<User> findAll();
 
     public void update(User user);
+    
+    public User findByName(String name);
 }
 
