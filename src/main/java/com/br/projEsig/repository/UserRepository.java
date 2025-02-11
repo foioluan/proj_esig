@@ -13,7 +13,7 @@ public interface UserRepository {
 
     public List<User> findAll();
 
-    public void update(User user);
+    public void update(User user, Long id);
     
     public User findByName(String name);
 }

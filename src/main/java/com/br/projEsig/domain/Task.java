@@ -1,5 +1,6 @@
 package com.br.projEsig.domain;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
@@ -23,12 +24,19 @@ public class Task extends GenericEntity{
     private String priority;
     private String status = "In progress";
     
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date deadline;
+    private LocalDate deadline;
     
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User manager;
+    
+    /*public Task(String title, String description, String priority, Date deadline, User manager) {
+    	this.title = title;
+    	this.description = description;
+    	this.priority = priority;
+    	this.deadline = deadline;
+    	this.manager = manager;
+    }*/
     
 	public String getTitle() {
 		return title;
@@ -62,11 +70,11 @@ public class Task extends GenericEntity{
 		this.status = status;
 	}
 	
-	public Date getDeadline() {
+	public LocalDate getDeadline() {
 		return deadline;
 	}
 	
-	public void setDeadline(Date deadline) {
+	public void setDeadline(LocalDate deadline) {
 		this.deadline = deadline;
 	}
 

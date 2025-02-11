@@ -38,20 +38,32 @@ public class UserService implements UserRepository{
 	}
 	
 	public void save(User user) {
+		em.getTransaction().begin();
+		
 		em.merge(user);
+		
+		em.getTransaction().commit();
 	}
 	
 	public void delete(Long id) {
+		em.getTransaction().begin();
+		
 		User user = this.findById(id);
 		em.remove(user);
+		
+		em.getTransaction().commit();
 	}
 	
-	public void update(User user) {
-		User existingUser = this.findById(user.getId());
+	public void update(User user, Long id) {
+		em.getTransaction().begin();
 		
-		existingUser.setEmail(user.getEmail());
-		existingUser.setName(user.getName());
+		User updatedUser = this.findById(id);
 		
-		em.merge(existingUser);
+		updatedUser.setEmail(user.getEmail());
+		updatedUser.setName(user.getName());
+		
+		em.merge(updatedUser);
+		
+		em.getTransaction().commit();
 	}
 }

@@ -11,7 +11,7 @@ public interface TaskRepository {
 
     public void delete(Long id);
 
-    public void update(Task task);
+    public void update(Task task, Long id);
 
     public List<Task> filterFind(String title, String description, String manager, String priority, String status);
 }

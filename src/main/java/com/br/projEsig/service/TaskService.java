@@ -71,24 +71,36 @@ public class TaskService {
 	}
 	
 	public void save(Task task) {
+		em.getTransaction().begin();
+		
 		em.merge(task);
+		
+		em.getTransaction().commit();
 	}
 	
 	public void delete(Long id) {
+		em.getTransaction().begin();
+		
 		Task task = this.findById(id);
 		em.remove(task);
+		
+		em.getTransaction().commit();
 	}
 	
-	public void update(Task task) {
-		Task existingTask = this.findById(task.getId());
+	public void update(Task task, Long id) {
+		em.getTransaction().begin();
 		
-		existingTask.setTitle(task.getTitle());
-		existingTask.setDescription(task.getDescription());
-		existingTask.setPriority(task.getPriority());
-		existingTask.setStatus(task.getStatus());
-		existingTask.setDeadline(task.getDeadline());
-		existingTask.setManager(task.getManager());
+		Task updatedTask = this.findById(id);
 		
-		em.merge(existingTask);
+		updatedTask.setTitle(task.getTitle());
+		updatedTask.setDescription(task.getDescription());
+		updatedTask.setPriority(task.getPriority());
+		updatedTask.setStatus(task.getStatus());
+		updatedTask.setDeadline(task.getDeadline());
+		updatedTask.setManager(task.getManager());
+		
+		em.merge(updatedTask);
+		
+		em.getTransaction().commit();
 	}
 }
