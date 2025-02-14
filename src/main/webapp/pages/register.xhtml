@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" >
+<h:head>
+    <meta charset="UTF-8" />
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-container h1 {
+            text-align: center;
+        }
+        .form-container .form-group {
+            margin-bottom: 15px;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-container input, .form-container select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: all 0.3s ease; 
+        }
+
+        .form-container input:focus, 
+        .form-container select:focus {
+            border-color: #80b3ff; 
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+            outline: none; 
+        }
+        .form-container .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-container .buttons .btn {
+            width: 48%;
+        }
+    </style>
+</h:head>
+<body>
+    <h:form class="form-container">
+        <h1>Sign Up</h1>
+
+        <h:panelGrid columns="2" cellpadding="5">
+        	<h:outputLabel for="name" value="Name: " />
+            <h:inputText id="name" value="#{authController.name}" />
+        	
+            <h:outputLabel for="email" value="Email:" />
+            <h:inputText id="email" value="#{authController.email}" />
+
+            <h:outputLabel for="password" value="Password: " />
+            <h:inputSecret id="password" value="#{authController.password}" />
+            
+            <h:outputLabel for="repassword" value="Repeat Password: " />
+            <h:inputSecret id="repassword" value="#{authController.repassword}" />
+        </h:panelGrid>
+
+        <div class="d-flex justify-content-center mt-3">
+	        <h:commandButton value="Sign Up" action="#{authController.signUp}" styleClass="btn btn-primary w-50"/>
+	    </div>
+	    
+	    <div class="text-center mt-2">
+	       	<p:commandLink action="#{authController.redirectToLogin}">Already have an account?</p:commandLink>
+	   	</div>
+    </h:form>
+</body>
+</html>

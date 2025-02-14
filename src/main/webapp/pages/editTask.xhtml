@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" >
+<h:head>
+    <meta charset="UTF-8" />
+    <title>Add Task</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-container h1 {
+            text-align: center;
+        }
+        .form-container .form-group {
+            margin-bottom: 15px;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-container input, .form-container select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: all 0.3s ease; 
+        }
+
+        .form-container input:focus, 
+        .form-container select:focus {
+            border-color: #80b3ff; 
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); 
+            outline: none; 
+        }
+        .form-container .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-container .buttons .btn {
+            width: 48%; 
+        }
+    </style>
+</h:head>
+<body>
+    <h:form class="form-container">
+        <h1>Edit Task</h1>
+
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel for="title" value="Title:" />
+            <h:inputText id="title" value="#{editTaskController.title}" />
+
+            <h:outputLabel for="description" value="Description:" />
+            <h:inputText id="description" value="#{editTaskController.description}" />
+
+            <h:outputLabel for="priority" value="Priority:" />
+            <h:selectOneMenu id="priority" value="#{editTaskController.priority}">
+                <f:selectItem itemLabel="High" itemValue="High" />
+                <f:selectItem itemLabel="Medium" itemValue="Medium" />
+                <f:selectItem itemLabel="Low" itemValue="Low" />
+            </h:selectOneMenu>
+
+            <h:outputLabel for="deadline" value="Deadline:" />
+			<p:inputText id="deadline" value="#{editTaskController.deadline}" placeholder="yyyy-mm-dd" />
+
+            <h:outputLabel for="manager" value="Manager:" />
+            <h:selectOneMenu id="manager" value="#{editTaskController.manager}">
+                <f:selectItems value="#{taskController.managerList}" var="manager"
+                    	itemLabel="#{manager.name}" itemValue="#{manager.name}" />
+            </h:selectOneMenu>
+        </h:panelGrid>
+
+        <div class="buttons">
+            <h:commandButton value="Save" action="#{editTaskController.editTask}" styleClass="btn btn-primary" />
+            <h:commandButton value="Cancel" action="home?faces-redirect=true" styleClass="btn btn-secondary" />
+        </div>
+    </h:form>
+</body>
+</html>
