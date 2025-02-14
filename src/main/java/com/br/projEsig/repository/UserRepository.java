@@ -16,5 +16,7 @@ public interface UserRepository {
     public void update(User user, Long id);
     
     public User findByName(String name);
+    
+    public User findById(Long id);
 }
 

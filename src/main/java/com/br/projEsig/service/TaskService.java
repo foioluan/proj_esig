@@ -2,13 +2,14 @@ package com.br.projEsig.service;
 
 import java.util.List;
 
+import com.br.projEsig.core.security.AuthUser;
 import com.br.projEsig.domain.Task;
 import com.br.projEsig.domain.User;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-import jakarta.persistence.TypedQuery;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 public class TaskService {
 	
@@ -26,43 +27,46 @@ public class TaskService {
 		return em.find(Task.class, id);
 	}
 	
-	public List<Task> filterFind(String title, String description, String manager, String priority, String status) {
-		StringBuilder queryString = new StringBuilder("SELECT u FROM User u WHERE 1=1");
+	public List<Task> filterFind(String title, String description, String manager, String priority) {
+		StringBuilder queryString = new StringBuilder("SELECT t FROM Task t WHERE 1=1");
 		UserService userService = new UserService();
-		User user = userService.findByName(manager);
+		User user = new User();
 		
-		if (title != null && !title.trim().isEmpty()) {
+		
+		if (!title.trim().isEmpty()) {
 			queryString.append(" AND LOWER(t.title) LIKE LOWER(:title)");
 	    }
-	    if (description != null && !description.trim().isEmpty()) {
+	    if (!description.trim().isEmpty()) {
 	    	queryString.append(" AND LOWER(t.description) LIKE LOWER(:description)");
 	    }
-	    if (manager != null && !manager.trim().isEmpty()) {
-	    	queryString.append(" AND LOWER(t.manager) LIKE LOWER(:managerId)");
+	    if (!manager.equals("All") && AuthUser.currentUserIsAdmin) {
+	    	user = userService.findByName(manager);
+	    	queryString.append(" AND t.manager.id = :managerId");
 	    }
-	    if (priority != null && !priority.trim().isEmpty()) {
+	    if (!priority.equals("All")) {
 	    	queryString.append(" AND LOWER(t.priority) = LOWER(:priority)");
 	    }
-	    if (status != null && !status.trim().isEmpty()) {
-	    	queryString.append(" AND LOWER(t.status) = LOWER(:status)");
+	    if(!AuthUser.currentUserIsAdmin) {
+	    	queryString.append(" AND t.manager.id = :managerId");
 	    }
 	    
 	    TypedQuery<Task> query = em.createQuery(queryString.toString(), Task.class);
 	    
-	    if (title != null && !title.trim().isEmpty()) {
+	    
+	    if (!title.trim().isEmpty()) {
 	        query.setParameter("title", "%" + title + "%");
 	    }
-	    if (description != null && !description.trim().isEmpty()) {
+	    if (!description.trim().isEmpty()) {
 	        query.setParameter("description", "%" + description + "%");
 	    }
-	    if (manager != null && !manager.trim().isEmpty()) {
-	        query.setParameter("manager", user.getId());
+	    if (!manager.equals("All") && AuthUser.currentUserIsAdmin) {
+	    	query.setParameter("managerId", user.getId());
 	    }
-	    if (priority != null && !priority.trim().isEmpty()) {
+	    if (!priority.equals("All")) {
 	        query.setParameter("priority", priority);
 	    }
-	    if (status != null && !status.trim().isEmpty()) {
-	        query.setParameter("status", status);
+	    if(!AuthUser.currentUserIsAdmin) {
+	    	query.setParameter("managerId", AuthUser.currentUserId);
 	    }
 	    
 	    List<Task> list = query.getResultList();
@@ -73,7 +77,7 @@ public class TaskService {
 	public void save(Task task) {
 		em.getTransaction().begin();
 		
-		em.merge(task);
+		em.persist(task);
 		
 		em.getTransaction().commit();
 	}
