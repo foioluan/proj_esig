@@ -3,40 +3,30 @@ package com.br.projEsig.domain;
 import java.time.LocalDate;
 import java.util.Date;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLRestriction;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "task_table")
 @SQLDelete(sql = "UPDATE task_table SET deleted_at = CURRENT_TIMESTAMP where id=?")
-@SQLRestriction("deleted_at is null")
+@Where(clause = "deleted_at IS NULL")
 public class Task extends GenericEntity{
 	
 	private String title;
     private String description;
     private String priority;
-    private String status = "In progress";
+    private String status = "In Progress";
     
-    private LocalDate deadline;
+    private String deadline;
     
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User manager;
-    
-    /*public Task(String title, String description, String priority, Date deadline, User manager) {
-    	this.title = title;
-    	this.description = description;
-    	this.priority = priority;
-    	this.deadline = deadline;
-    	this.manager = manager;
-    }*/
     
 	public String getTitle() {
 		return title;
@@ -70,11 +60,11 @@ public class Task extends GenericEntity{
 		this.status = status;
 	}
 	
-	public LocalDate getDeadline() {
+	public String getDeadline() {
 		return deadline;
 	}
 	
-	public void setDeadline(LocalDate deadline) {
+	public void setDeadline(String deadline) {
 		this.deadline = deadline;
 	}
 

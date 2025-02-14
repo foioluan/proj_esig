@@ -1,15 +1,15 @@
 package com.br.projEsig.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLRestriction;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "user_table")
 @SQLDelete(sql = "UPDATE user_table SET deleted_at = CURRENT_TIMESTAMP where id=?")
-@SQLRestriction("deleted_at is null")
+@Where(clause = "deleted_at IS NULL")
 public class User extends GenericEntity{
 	
 	private String email;
@@ -17,12 +17,6 @@ public class User extends GenericEntity{
 	private String name;
 	private Boolean isAdmin = false;
 	
-	/*public User(String email, String password, String name) {
-		this.email = email;
-		this.password = password;
-		this.name = name;
-	}*/
-
 	public String getEmail() {
 		return email;
 	}
