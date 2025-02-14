@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui" >
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
     <meta charset="UTF-8" />
     <title>Sign In</title>
@@ -17,6 +17,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            flex-direction: column;
         }
         .form-container {
             width: 300px;
@@ -50,13 +51,10 @@
             box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
             outline: none; 
         }
-        .form-container .buttons {
-            display: flex;
-            justify-content: space-between;
-        }
 
-        .form-container .buttons .btn {
-            width: 48%; 
+        .form-footer {
+            text-align: center;
+            margin-top: 15px;
         }
     </style>
 </h:head>
@@ -76,9 +74,9 @@
 	        <h:commandButton value="Sign In" action="#{authController.signIn}" styleClass="btn btn-primary w-50"/>
 	    </div>
 	    
-	    <div class="text-center mt-2">
-	       	<p:commandLink action="#{authController.redirectToRegister}" ajax="false">Don't have an account?</p:commandLink>
-	   	</div>
+	    <div class="form-footer">
+	        <h:link outcome="/pages/register?faces-redirect=true" styleClass="btn btn-link">Don't have an account?</h:link>
+	    </div>
     </h:form>
 </body>
 </html>

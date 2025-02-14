@@ -1,5 +1,7 @@
 package com.br.projEsig.core.security;
 
+import java.io.Serializable;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -7,7 +9,9 @@ import com.br.projEsig.service.AuthService;
 
 @ManagedBean(name="authController")
 @ViewScoped
-public class AuthController {
+public class AuthController implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	AuthService service = new AuthService();
 	
