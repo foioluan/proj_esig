@@ -17,6 +17,7 @@ Funções da aplicação:
 - Criação, leitura, atualização e remoção de atividades (Tasks);
 - Criação e leitura de usuários (User);
 - Sistema de login utilizando segurança de filtros na url;
+- Testes de persistência foram feitos utilizando o JUnit Jupiter (Podem ser encontrados em src/test/java/projEsig/PersistenceTests.java);
 
 <h2 id="started">🚀 Intruções de uso</h2>
 
