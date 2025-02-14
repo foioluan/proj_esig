@@ -12,7 +12,7 @@ import com.br.projEsig.domain.User;
 public class Teste {
 
 	public static void main(String[] args) {
-		/*UserService userService = new UserService();
+		UserService userService = new UserService();
 		TaskService taskService = new TaskService();
 		
 		User user = new User();
@@ -68,28 +68,6 @@ public class Teste {
 		task.setManager(manager);
 		task.setDeadline("2025-02-25");
 		
-		taskService.save(task);*/
-		
-		String dateString = "Tue Feb 18 21:00:00 BRT 2025";
-
-        // Definir o formato para parse da string
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy");
-        
-        try {
-            // Fazer o parse da string para ZonedDateTime
-            ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateString, formatter);
-            
-            // Converter para LocalDate (somente data)
-            LocalDate localDate = zonedDateTime.toLocalDate();
-            
-            // Formatar a data no formato desejado "yyyy-MM-dd"
-            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String formattedDate = localDate.format(outputFormatter);
-            
-            // Exibir a data formatada
-            System.out.println("\n\n\n\n" + formattedDate);  // Exemplo: 2025-02-18
-        } catch (DateTimeParseException e) {
-            System.out.println("Erro ao parsear a data: " + e.getMessage());
-        }
+		taskService.save(task);
 	}
 }
