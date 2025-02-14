@@ -1,0 +1,8 @@
+com\br\projEsig\service\TaskService.class
+com\br\projEsig\domain\User.class
+com\br\projEsig\service\UserService.class
+com\br\projEsig\repository\UserRepository.class
+com\br\projEsig\service\Teste.class
+com\br\projEsig\domain\GenericEntity.class
+com\br\projEsig\repository\TaskRepository.class
+com\br\projEsig\domain\Task.class
